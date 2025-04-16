@@ -1,0 +1,215 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 260 80% 10%; /* Deep Purple */
+    --foreground: 0 0% 95%;
+
+    --card: 260 60% 15%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 260 60% 15%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 262 60% 60%; /* Purple */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 60% 20%; /* Midnight Blue */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 260 30% 30%;
+    --muted-foreground: 0 0% 80%;
+
+    --accent: 165 100% 50%; /* Neon Teal */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 262 70% 40%;
+    --input: 262 70% 40%;
+    --ring: 262 70% 60%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 260 80% 5%; 
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 262 60% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 165 100% 50%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 262 70% 40%;
+    --sidebar-ring: 262 70% 60%;
+  }
+
+  .dark {
+    /* Same as root since this is a dark-themed game */
+    --background: 260 80% 10%;
+    --foreground: 0 0% 95%;
+
+    --card: 260 60% 15%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 260 60% 15%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 262 60% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 60% 20%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 260 30% 30%;
+    --muted-foreground: 0 0% 80%;
+
+    --accent: 165 100% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 262 70% 40%;
+    --input: 262 70% 40%;
+    --ring: 262 70% 60%;
+
+    --sidebar-background: 260 80% 5%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 262 60% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 165 100% 50%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 262 70% 40%;
+    --sidebar-ring: 262 70% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-game-deep-purple text-foreground overflow-hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-cinzel;
+  }
+}
+
+@layer components {
+  .frosted-panel {
+    @apply bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-md border border-white/20 shadow-lg rounded-lg;
+  }
+
+  .game-button {
+    @apply relative px-6 py-3 bg-gradient-to-b from-white/20 to-white/5 backdrop-blur-md
+    border border-white/20 rounded-lg font-cinzel text-white
+    shadow-lg hover:shadow-neon transition-all duration-300
+    hover:scale-105 active:scale-95;
+  }
+
+  .game-button::before {
+    @apply content-[''] absolute inset-0 rounded-lg opacity-0
+    bg-neon-border bg-[length:400%] transition-opacity duration-300;
+  }
+
+  .game-button:hover::before {
+    @apply opacity-50 animate-[gradient_3s_ease-in-out_infinite];
+  }
+
+  .card-container {
+    @apply relative w-[180px] h-[250px] perspective-1000 cursor-pointer;
+  }
+
+  .card-inner {
+    @apply relative w-full h-full transition-transform duration-500 transform-style-3d;
+  }
+
+  .card-container:hover .card-inner {
+    @apply rotate-y-180;
+  }
+
+  .card-face {
+    @apply absolute w-full h-full rounded-lg overflow-hidden backface-hidden;
+  }
+
+  .card-front {
+    @apply bg-card-gradient border-2 border-game-card-border;
+  }
+
+  .card-back {
+    @apply bg-card-gradient border-2 border-game-card-border rotate-y-180;
+  }
+
+  .glow-on-hover {
+    @apply transition-all duration-300 hover:shadow-neon;
+  }
+
+  .mana-bar {
+    @apply h-2 rounded-full bg-gradient-to-r from-blue-900 to-blue-400 relative overflow-hidden;
+  }
+
+  .mana-bar::after {
+    @apply content-[''] absolute top-0 left-0 right-0 bottom-0 bg-white opacity-30;
+    animation: mana-pulse 2s ease-in-out infinite;
+  }
+
+  .health-bar {
+    @apply h-2 rounded-full bg-gradient-to-r from-red-900 to-red-500 relative overflow-hidden;
+  }
+
+  .health-bar::after {
+    @apply content-[''] absolute top-0 left-0 right-0 bottom-0 bg-white opacity-30;
+    animation: health-pulse 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes mana-pulse {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.3; }
+  }
+
+  @keyframes health-pulse {
+    0% { opacity: 0.1; }
+    100% { opacity: 0.4; }
+  }
+
+  /* Perspective utilities */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+
+  /* Particles and animations */
+  .particle {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    --random-x: random(-100, 100);
+    --random-y: random(-100, 100);
+    --random-duration: calc(2s + (random(0, 1000) / 1000) * 3s);
+  }
+}
